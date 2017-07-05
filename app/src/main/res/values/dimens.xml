@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="a">40dp</dimen>
-    <dimen name="b">140dp</dimen>
-    <dimen name="c">40dp</dimen>
-    <dimen name="d">60dp</dimen>
+    <dimen name="a">60dp</dimen>
+    <dimen name="b">240dp</dimen>
+    <dimen name="c">60dp</dimen>
+    <dimen name="d">120dp</dimen>
     <dimen name="cw">120dp</dimen>
     <dimen name="l">1dp</dimen>
 </resources>

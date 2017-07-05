@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutBackground"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#393C4D"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/monthName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="4dp"
+        android:text="Jan"
+        android:textAllCaps="true"
+        android:visibility="invisible" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/dayName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="4dp"
+            android:text="Mon"
+            android:textAllCaps="true"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:layout_alignRight="@+id/dayName"
+            android:layout_alignTop="@+id/dayName"
+            android:src="@drawable/circle"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/dayNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/monthName"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="-1dp"
+        android:text="2"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
+
+    <View
+        android:id="@+id/selection_view"
+        android:layout_width="35dp"
+        android:layout_height="5dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/date_selection_bar"
+        android:visibility="visible" />
+
+</LinearLayout>

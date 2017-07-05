@@ -20,5 +20,6 @@ public class MainActivity extends AppCompatActivity {
         adapter = new TwoDAdapter(this, layout);
 
         layout.setAdapter(adapter);
+        layout.setup();
     }
 }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#393C4D"
+    android:orientation="vertical">
+
+    <com.arlib.floatingsearchview.FloatingSearchView
+        android:id="@+id/floating_search_view"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:paddingLeft="26dp"
+        android:paddingRight="26dp"
+        android:paddingTop="26dp"
+        android:textAlignment="center"
+        app:floatingSearch_backgroundColor="#272B3D"
+        app:floatingSearch_close_search_on_keyboard_dismiss="true"
+        app:floatingSearch_dimBackground="false"
+        app:floatingSearch_dismissOnOutsideTouch="true"
+        app:floatingSearch_leftActionMode="showSearch"
+        app:floatingSearch_searchHint=""
+        app:floatingSearch_showSearchKey="false"
+        app:floatingSearch_suggestionsListAnimDuration="250" />
+
+    <HorizontalScrollView
+        android:id="@+id/hscrll_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/rl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <include layout="@layout/schedule_header_row" />
+            <!--<include-->
+            <!--layout="@layout/schedule_header_row"/>-->
+            <!--<include-->
+            <!--layout="@layout/schedule_header_row"/>-->
+            <!--<include-->
+        </LinearLayout>
+    </HorizontalScrollView>
+</LinearLayout>

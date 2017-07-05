@@ -38,7 +38,14 @@ public class TwoDAdapter {
     public ArrayList<String> getTLDataSet() {
         ArrayList<String> tlDataSet = new ArrayList<>();
         for (int index = 0; index < 24; index++)
-            tlDataSet.add(Integer.toString(index) + (index >= 12 ? " PM" : " AM"));
+           tlDataSet.add(Integer.toString(index) + (index >= 12 ? " PM" : " AM"));
         return tlDataSet;
     }
+
+//    public ArrayList<String> getTracksDataSet() {
+//        ArrayList<String> trDataSet = new ArrayList<>();
+//        for (int index = 0; index < 26; index++)
+//            trDataSet.add("Room "+index);
+//        return trDataSet;
+//    }
 }
