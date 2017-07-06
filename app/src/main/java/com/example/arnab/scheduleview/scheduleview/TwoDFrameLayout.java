@@ -6,18 +6,21 @@ import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.arnab.scheduleview.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by arnab on 03/07/17.
@@ -71,7 +74,11 @@ public class TwoDFrameLayout extends FrameLayout {
 
     }
 
-    public void setup() {
+    Object[][] eventPos;
+
+    public void setup(FrameLayout parent_overlay) {
+
+
         if (adapter == null)
             throw new IllegalStateException("adapter can not be null. call setAdapter first");
 
@@ -79,15 +86,17 @@ public class TwoDFrameLayout extends FrameLayout {
         parentFrameLayout.setLayoutParams(layoutParams);
 
         ArrayList<String> tlDataSet = adapter.getTLDataSet();
+        List<String> tracksDataSet = new ArrayList<String>(Arrays.asList("1", "2", "3", "4", "5", "6", "7"));
+
+        eventPos = new Object[tlDataSet.size()][tracksDataSet.size()]; //to store hour,track location
         int count = (2 * tlDataSet.size()) + 1;
 
         //draw tracks
 
         LinearLayout tracks = new LinearLayout(context);
         tracks.setOrientation(LinearLayout.HORIZONTAL);
-        int noOfTracks = 8;
 
-        for (int index = 0; index < noOfTracks; index++) {
+        for (int index = 0; index < tracksDataSet.size(); index++) {
 
             LinearLayout tr = new LinearLayout(context);
             tr.setOrientation(LinearLayout.VERTICAL);
@@ -100,23 +109,25 @@ public class TwoDFrameLayout extends FrameLayout {
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(index == 0 ? roww : colw, index == 0 && i == 0 ? rowh / 2 : rowh);
                 textView.setLayoutParams(params);
 
+
                 if (index == 0)
                     textView.setText(isTerminal || i % 2 == 0 ? "" : tlDataSet.get((i / 2)));
                 else
-                    textView.setText(i == 0 ? "Room " + index : "");
+                    textView.setText(i == 0 ? "Room " + tracksDataSet.get(index) : "");
 
                 textView.setBackgroundColor(Color.WHITE);
                 textView.setTextColor(Color.BLACK);
                 textView.setGravity(Gravity.CENTER);
 
                 tr.addView(textView);
-                tr.addView(new Divider(context, true, index == 0));
+                Divider div = new Divider(context, true, index == 0);
+                tr.addView(div);
 
-
-                if (index == 1 && i == 1) {
-                    tr.addView(new EventView(context));
-//                    addEventOnTop(tr);
+                if (!isTerminal && i % 2 != 0 && i < 25) {
+                    eventPos[i][index] = textView;
+                    Log.v("oo", " " + eventPos[i][index]);
                 }
+
             }
             System.out.println(tr.getChildCount());
             tr.setGravity(Gravity.LEFT | Gravity.TOP);
@@ -127,30 +138,41 @@ public class TwoDFrameLayout extends FrameLayout {
         parentFrameLayout.addView(tracks);
 
 
+        parent_overlay.setMinimumWidth(parentFrameLayout.getWidth());
+        parent_overlay.setMinimumHeight(parentFrameLayout.getHeight());
+        int hour = 3;
+        int track = 1;
+
+        addEventOnTop(hour, track, parent_overlay);
+
+//        getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//            @Override
+//            public void onGlobalLayout() {
+//                TextView object= (TextView) eventPos[3][1];
+//                eventView.setX(object.getX());
+//                eventView.setY(object.getY());
+//            }
+//        });
     }
 
-    private void addEventOnTop(LinearLayout targetView) {
+    EventView eventView;
 
-        int[] location = new int[2];
-        targetView.getLocationInWindow(location);
-        EventView eventView = new EventView(context);
+    private void addEventOnTop(int hour, int track, FrameLayout parent_overlay) {
 
-        ViewGroup.LayoutParams layoutParams = (ViewGroup.LayoutParams) targetView.getLayoutParams();
+        eventView = new EventView(context);
+//        String s = eventPos[hour][track];
+//        String first = s.split(",")[0];
+//        String next = s.split(",")[1];
 
-        ViewGroup.LayoutParams topLayoutParams = (ViewGroup.LayoutParams) eventView.getLayoutParams();
+//        eventView.setX(Float.parseFloat(first));
+//        eventView.setY(Float.parseFloat(next));
 
-//        topLayoutParams.width = location[0] + targetView.getPaddingLeft();
-//
-//        topLayoutParams.height = location[1] + targetView.getPaddingTop() ;
-//
-//        eventView.setLayoutParams(topLayoutParams);
+        parentFrameLayout.addView(eventView);
 
-//        eventView.setPadding(location[0] + targetView.getPaddingLeft(),location[1] + targetView.getPaddingTop(),0,0);
-        eventView.setLeft(location[0] + targetView.getPaddingLeft());
-        eventView.setTop(location[0] + targetView.getPaddingTop());
-        invalidate();
+       // invalidate();
 
     }
+
 
     private void getDimensions() {
         colh = context.getResources().getDimensionPixelSize(R.dimen.a);
